@@ -33,40 +33,62 @@ const TodoList: React.FC<Props> = ({
   }, [todos, filter, search]);
 
   return (
-    <section>
-      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+    <section className="bg-purple-50 rounded-xl p-6 shadow-sm">
+      {/* Search + Filters */}
+      <div className="flex flex-col md:flex-row md:items-center gap-3 mb-4">
         <input
           placeholder="Search todos..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           aria-label="Search todos"
-          style={{ flex: 1, padding: 8 }}
+          className="flex-1 px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
-        <div style={{ display: "flex", gap: 6 }}>
+        <div className="flex gap-2">
           <button
             onClick={() => setFilter("all")}
             aria-pressed={filter === "all"}
+            className={`px-4 py-2 rounded-lg text-sm font-medium border transition 
+              ${
+                filter === "all"
+                  ? "bg-purple-200 text-purple-800 border-purple-300"
+                  : "bg-purple-100 text-purple-600 border-transparent hover:bg-purple-200"
+              }`}
           >
             All
           </button>
           <button
             onClick={() => setFilter("active")}
             aria-pressed={filter === "active"}
+            className={`px-4 py-2 rounded-lg text-sm font-medium border transition 
+              ${
+                filter === "active"
+                  ? "bg-purple-200 text-purple-800 border-purple-300"
+                  : "bg-purple-100 text-purple-600 border-transparent hover:bg-purple-200"
+              }`}
           >
             Active
           </button>
           <button
             onClick={() => setFilter("completed")}
             aria-pressed={filter === "completed"}
+            className={`px-4 py-2 rounded-lg text-sm font-medium border transition 
+              ${
+                filter === "completed"
+                  ? "bg-purple-200 text-purple-800 border-purple-300"
+                  : "bg-purple-100 text-purple-600 border-transparent hover:bg-purple-200"
+              }`}
           >
             Completed
           </button>
         </div>
       </div>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      {/* Todo Items */}
+      <ul className="divide-y divide-purple-200">
         {filtered.length === 0 ? (
-          <li style={{ padding: 12, color: "#666" }}>No todos found</li>
+          <li className="p-4 text-purple-500 italic text-center">
+            No todos found
+          </li>
         ) : (
           filtered.map((t) => (
             <TodoItem
@@ -80,25 +102,22 @@ const TodoList: React.FC<Props> = ({
         )}
       </ul>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: 12,
-        }}
-      >
-        <div>
-          <small>
-            Total: {todos.length} • Active:{" "}
-            {todos.filter((t) => !t.completed).length} • Completed:{" "}
-            {todos.filter((t) => t.completed).length}
-          </small>
+      {/* Footer stats + clear button */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mt-4 gap-3">
+        <div className="text-sm text-purple-600">
+          <span>Total: {todos.length}</span> •{" "}
+          <span>Active: {todos.filter((t) => !t.completed).length}</span> •{" "}
+          <span>Completed: {todos.filter((t) => t.completed).length}</span>
         </div>
-        <div>
-          <button onClick={onClearCompleted}>Clear completed</button>
-        </div>
+        <button
+          onClick={onClearCompleted}
+          className="px-4 py-2 rounded-lg text-sm font-medium bg-red-100 text-red-700 hover:bg-red-200 transition"
+        >
+          Clear completed
+        </button>
       </div>
 
+      {/* Edit Modal */}
       <EditModal
         todo={editing}
         onClose={() => setEditing(null)}

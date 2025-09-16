@@ -33,7 +33,7 @@ const App: React.FC = () => {
 
         {/* Footer */}
         <footer className="text-center mt-6 text-sm text-gray-400">
-          Built with ❤️ using React + TypeScript + Tailwind
+          Created by Md Emon Mahdi
         </footer>
       </div>
     </div>
