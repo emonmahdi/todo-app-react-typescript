@@ -29,38 +29,45 @@ const EditModal: React.FC<Props> = ({ todo, onClose, onSave }) => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="edit-todo-title"
-      style={{
-        position: "fixed",
-        inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgba(0,0,0,0.4)",
-        padding: 16,
-      }}
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 z-50"
       onClick={onClose}
     >
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        style={{
-          background: "white",
-          padding: 16,
-          borderRadius: 8,
-          minWidth: 320,
-        }}
+        className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 animate-fade-in"
       >
-        <h3 id="edit-todo-title">Edit Todo</h3>
+        {/* Title */}
+        <h3
+          id="edit-todo-title"
+          className="text-lg font-semibold text-gray-800 mb-4"
+        >
+          ✏️ Edit Todo
+        </h3>
+
+        {/* Input */}
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          style={{ width: "100%", padding: 8, margin: "8px 0" }}
+          placeholder="Update your todo..."
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition mb-4"
         />
-        <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-          <button type="button" onClick={onClose}>
+
+        {/* Buttons */}
+        <div className="flex justify-end gap-3">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition"
+          >
             Cancel
           </button>
-          <button type="submit">Save</button>
+          <button
+            type="submit"
+            className="px-4 py-2 rounded-lg bg-indigo-500 text-black font-semibold shadow hover:bg-indigo-600 active:scale-95 transition-transform"
+          >
+            Save
+          </button>
         </div>
       </form>
     </div>

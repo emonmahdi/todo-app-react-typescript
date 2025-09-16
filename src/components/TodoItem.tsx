@@ -10,15 +10,8 @@ type Props = {
 
 const TodoItem: React.FC<Props> = ({ todo, onToggle, onEdit, onDelete }) => {
   return (
-    <li
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 12,
-        padding: 8,
-        borderBottom: "1px solid #eee",
-      }}
-    >
+    <li className="flex items-center gap-4 p-4 border-b border-purple-200 hover:bg-purple-50 transition-colors duration-200">
+      {/* Checkbox */}
       <input
         type="checkbox"
         checked={todo.completed}
@@ -26,24 +19,36 @@ const TodoItem: React.FC<Props> = ({ todo, onToggle, onEdit, onDelete }) => {
         aria-label={`Mark ${todo.title} as ${
           todo.completed ? "incomplete" : "complete"
         }`}
+        className="h-5 w-5 rounded-md border-2 border-purple-400 text-purple-600 focus:ring-purple-500"
       />
-      <div style={{ flex: 1 }}>
+
+      {/* Content */}
+      <div className="flex-1">
         <div
-          style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+          className={`text-lg font-medium ${
+            todo.completed ? "line-through text-purple-400" : "text-purple-800"
+          }`}
         >
           {todo.title}
         </div>
-        <small style={{ color: "#666" }}>
+        <small className="text-sm text-purple-500">
           {new Date(todo.createdAt).toLocaleString()}
         </small>
       </div>
-      <div style={{ display: "flex", gap: 8 }}>
-        <button onClick={() => onEdit(todo)} aria-label={`Edit ${todo.title}`}>
+
+      {/* Actions */}
+      <div className="flex gap-2">
+        <button
+          onClick={() => onEdit(todo)}
+          aria-label={`Edit ${todo.title}`}
+          className="px-3 py-1 text-sm rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 transition"
+        >
           Edit
         </button>
         <button
           onClick={() => onDelete(todo.id)}
           aria-label={`Delete ${todo.title}`}
+          className="px-3 py-1 text-sm rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition"
         >
           Delete
         </button>
